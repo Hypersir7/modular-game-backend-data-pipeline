@@ -1,15 +1,15 @@
 
 
-create Table player (
+CREATE TABLE IF NOT EXISTS player (
     id Serial PRIMARY KEY,
     username VARCHAR(100) NOT NULL UNIQUE,
     level INTEGER NOT NULL, 
     xp INTEGER NOT NULL,
     money INTEGER NOT NULL, 
-    inventory_slots NOT NULL
+    inventory_slots INTEGER NOT NULL
 );
 
-create Table monster (
+CREATE TABLE IF NOT EXISTS monster (
     id Serial PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE,
     health INTEGER NOT NULL,
@@ -19,14 +19,14 @@ create Table monster (
     probability INTEGER NOT NULL
 );
 
-create Table object (
+CREATE TABLE IF NOT EXISTS object (
     name VARCHAR(100) NOT NULL UNIQUE,
     type VARCHAR(100) NOT NULL,
     property VARCHAR(100) NOT NULL,
     price INTEGER NOT NULL
 );
 
-create Table character (
+CREATE TABLE IF NOT EXISTS character (
     name VARCHAR(100) NOT NULL UNIQUE,
     class VARCHAR(100) NOT NULL UNIQUE,
     health INTEGER NOT NULL,
@@ -37,7 +37,7 @@ create Table character (
     username VARCHAR(100) NOT NULL
 );
 
-create Table quest (
+CREATE TABLE IF NOT EXISTS quest (
     name VARCHAR(200) NOT NULL UNIQUE,
     xp INTEGER NOT NULL,
     difficulty INTEGER NOT NULL,
@@ -45,24 +45,24 @@ create Table quest (
     description VARCHAR(2000)
 );
 
-create Table pnjs (
+CREATE TABLE IF NOT EXISTS pnjs (
     name VARCHAR(100) NOT NULL UNIQUE,
-    dialogue VARCHAR(500) NOT NULL UNIQUE,
+    dialogue VARCHAR(500) NOT NULL UNIQUE
 );
 
-create Table pnjs_quest (
+CREATE TABLE IF NOT EXISTS pnjs_quest (
     pnj_name VARCHAR(100) REFERENCES pnjs(name) ON DELETE CASCADE,
     quest_name VARCHAR(200) REFERENCES quest(name) ON DELETE CASCADE,
     PRIMARY KEY (pnj_name, quest_name)
 );
 
-create Table pnjs_object (
+CREATE TABLE IF NOT EXISTS pnjs_object (
     pnj_name VARCHAR(100) REFERENCES pnjs(name) ON DELETE CASCADE,
     object_name VARCHAR(100) REFERENCES object(name) ON DELETE CASCADE,
     PRIMARY KEY (pnj_name, object_name)
 );
 
-create Table spell (
+CREATE TABLE IF NOT EXISTS spell (
     id Serial PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     mana_cost INTEGER NOT NULL,
