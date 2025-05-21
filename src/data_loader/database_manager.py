@@ -15,6 +15,7 @@ class DatabaseManager:
         self.PORT = port
         self.connection = None
         self.cursor = None
+        self.connected = False
 
 
 
@@ -29,7 +30,7 @@ class DatabaseManager:
                 )
             
             self.cursor = self.connection.cursor(cursor_factory=RealDictCursor)
-
+            self.connected = True
             print(f"[INFO] Connected to database: {dbName} as {username} !")
 
         except Exception as e:
@@ -65,6 +66,9 @@ class DatabaseManager:
                 self.cursor.close()
             if self.connection is not None:
                 self.connection.close()
+            
+            self.connected = False
+            
             print("[INFO] database was closed!")
         except Exception as e:
             print("[ERROR] could not close database!")
@@ -79,3 +83,39 @@ class DatabaseManager:
                 print("[ERROR] could not rollback transaction!")
                 print(f"ERROR TYPE : {e}")
 
+
+    def fetchData(self):
+        try:
+            if self.cursor is None:
+                raise Exception("[ERROR] No database cursor : call 'connectToDatabase()' to initalize it!")
+
+            data = self.cursor.fetchall()
+            return data
+        except Exception as e:
+            print("[ERROR] could not fetch data!")
+            print(f"ERROR TYPE : {e} ")
+            self.rollback()
+            return None
+
+    def displayFetchedData(self, data):
+        if data is None:
+            print("[ERROR] No data to display!")
+            return
+
+        for row in data:
+            print(dict(row))
+        print("[INFO] data displayed successfully!")
+
+    def isConnected(self):
+        return self.connected
+    
+    def __del__(self):
+        if self.connected:
+            self.close()
+            print("[INFO] database was closed!")
+        else:
+            print("[INFO] database was already closed!")
+        self.connected = False
+        self.cursor = None
+        self.connection = None
+        print("[INFO] database manager was deleted!")
