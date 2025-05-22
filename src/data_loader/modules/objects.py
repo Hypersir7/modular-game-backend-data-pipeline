@@ -5,6 +5,8 @@ from convertor import Convertor
 class ObjectsLoader:
 	@staticmethod
 	def loadObjects(filepath):
+		numberOFInserts = 0
+		numberOFSkkips = 0
 		db = DatabaseManager()
 		db.connectToDatabase(dbName="gamedata", username="game_admin", password="1919")
 
@@ -19,23 +21,27 @@ class ObjectsLoader:
 					price = Convertor.convertToInt(row["Prix"])
 					
 					if(not name or not objectType or not objectPropertie or price is None):
-						print(f"[WARNING] invalid values detected ! skipping line ...")
+						print(f"[WARNING] : [OBJECTS] invalid values detected ! skipping line ...")
+						numberOFSkkips += 1
 						continue
 						
 					if(price < 0):
-						print(f"[WARNING] negative price detected ! skipping line ...")
+						print(f"[WARNING] : [OBJECTS] negative price detected ! skipping line ...")
+						numberOFSkkips += 1
 						continue
 		
 					request = """ 
 					          INSERT INTO object (name, type, property, price)
 					          VALUES (%s, %s, %s, %s)
+							  ON CONFLICT (name) DO NOTHING
 					          """
 					db.execute(request=request, values=(name, objectType, objectPropertie, price))
 					db.commit()
-					print(f"Inserted object: {name}")
+					numberOFInserts += 1
+					# print(f"Inserted object: {name}")
 
 				except Exception as e:
 					print(f"[ERROR] failed to insert object into database :{name} -> {e}")
 					db.rollback()
-		
+		print(f"[REQUESTS SUMMARY] :  -> {numberOFInserts} INSERTED | {numberOFSkkips} SKIPPED")
 		db.close()

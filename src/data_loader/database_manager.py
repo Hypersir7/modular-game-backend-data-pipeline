@@ -8,7 +8,7 @@ from psycopg2.extras import RealDictCursor
 class DatabaseManager:
 
     LOCALHOST = 'localhost'
-    PORT = 5432
+    PORT = 5432 # PostgreSQL port
 
     def __init__(self, host = LOCALHOST, port = PORT) -> None:
         self.LOCALHOST = host
@@ -113,8 +113,7 @@ class DatabaseManager:
         if self.connected:
             self.close()
             print("[INFO] database was closed!")
-        else:
-            print("[INFO] database was already closed!")
+                   
         self.connected = False
         self.cursor = None
         self.connection = None

@@ -1,0 +1,82 @@
+
+
+[INFO] Connected to database: gamedata as game_admin !
+
+========== [INFO] LOADING PLAYERS DATA ==========
+[INFO] Connected to database: gamedata as game_admin !
+[WARNING] : [PLAYERS] invalide values detected ! skipping line ...
+[WARNING] : [PLAYERS] negative values detected ! skipping line ...
+[WARNING] : [PLAYERS] invalide values detected ! skipping line ...
+[WARNING] : [PLAYERS] invalide values detected ! skipping line ...
+[WARNING] : [PLAYERS] invalide values detected ! skipping line ...
+[WARNING] : [PLAYERS] invalide values detected ! skipping line ...
+[WARNING] : [PLAYERS] invalide values detected ! skipping line ...
+[WARNING] : [PLAYERS] invalide values detected ! skipping line ...
+[WARNING] : [PLAYERS] invalide values detected ! skipping line ...
+[WARNING] : [PLAYERS] invalide values detected ! skipping line ...
+[WARNING] : [PLAYERS] negative values detected ! skipping line ...
+[WARNING] : [PLAYERS] invalide values detected ! skipping line ...
+[REQUESTS SUMMARY] : PLAYERS -> 141 INSERTED | 12 SKIPPED
+
+[INFO] database was closed!
+[INFO] database manager was deleted!
+
+==========[RESULT] SUCCESSFULLY LOADED PLAYERS DATA ! ==========
+
+
+========== [INFO] LOADING OBJECTS DATA ==========
+[INFO] Connected to database: gamedata as game_admin !
+[WARNING] : [OBJECTS] invalid values detected ! skipping line ...
+[WARNING] : [OBJECTS] invalid values detected ! skipping line ...
+[WARNING] : [OBJECTS] invalid values detected ! skipping line ...
+[WARNING] : [OBJECTS] invalid values detected ! skipping line ...
+[WARNING] : [OBJECTS] invalid values detected ! skipping line ...
+[REQUESTS SUMMARY] :  -> 145 INSERTED | 5 SKIPPED
+[INFO] database was closed!
+[INFO] database manager was deleted!
+
+==========[RESULT] SUCCESSFULLY LOADED OBJECTS DATA ! ==========
+
+========== [INFO] LOADING MONSTERS DATA ==========
+[INFO] Connected to database: gamedata as game_admin !
+[ERROR] failed to insert monster Troll into database : 'NoneType' object has no attribute 'text'
+[INFO] transaction rolled back
+[WARNING] missing/corrupted data for monster: Beholder
+[WARNING] missing/corrupted data for monster: Dragonnet
+[WARNING] missing/corrupted data for monster: None
+[WARNING] missing/corrupted data for monster: Zombie
+[ERROR] failed to insert monster Golem de Feu into database : 'NoneType' object has no attribute 'text'
+[INFO] transaction rolled back
+[ERROR] failed to insert monster Poisson Volant into database : 'NoneType' object has no attribute 'text'
+[INFO] transaction rolled back
+[WARNING] missing/corrupted data for monster: None
+[REQUESTS SUMMARY] : MONSTERS -> 92 INSERTED | 5 SKIPPED
+[INFO] database was closed!
+[INFO] database manager was deleted!
+
+==========[RESULT] SUCCESSFULLY LOADED MONSTERS DATA ! ==========
+
+========== [INFO] LOADING SPELLS DATA ==========
+[INFO] Connected to database: gamedata as game_admin !
+[REQUESTS SUMMARY] : SPELLS -> 100 INSERTED | 0 SKIPPED
+[INFO] database was closed!
+[INFO] database manager was deleted!
+
+==========[RESULT] SUCCESSFULLY LOADED SPELLS DATA ! ==========
+
+
+========== [INFO] LOADING CHARACTERS DATA ==========
+[INFO] Connected to database: gamedata as game_admin !
+[WARNING] : [CHARACTERS] invalid values detected ! skipping character insertion ...
+[WARNING] : [CHARACTERS] invalid values detected ! skipping character insertion ...
+[WARNING] : [CHARACTERS] invalid values detected ! skipping character insertion ...
+[REQUESTS SUMMARY] : CHARACTERS -> 997 INSERTED | 3 SKIPPED
+[INFO] database was closed!
+[INFO] database manager was deleted!
+
+==========[RESULT] SUCCESSFULLY LOADED CHARACTERS DATA ! ==========
+
+[END] : SUCESSFULLY LOADED AND FETCHED  ALL DATA  (DECOMMENTE PREVIOUS LINES TO SHOW FETCHED DATA!
+[INFO] database was closed!
+[INFO] database was closed!
+[INFO] database manager was deleted!
