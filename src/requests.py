@@ -1,0 +1,87 @@
+from data_loader.database_manager import DatabaseManager
+
+
+# ====================== COMMUNICATING AND GETTING DATA FROM THE DATABASE ======================
+class Requests:
+
+    # ====================== REQUETSTS ======================
+    TOP10GOLD = """ 
+    SELECT username, money
+    FROM player
+    ORDER BY money DESC
+    LIMIT 10;
+    """
+
+    PLAYERMOSTCHARCLASS = """
+    SELECT username, class, COUNT(*) AS nb_characters
+    FROM character
+    GROUP BY username, class
+    ORDER BY nb_characters DESC
+    LIMIT 1;
+    """
+
+    BESTREWARDPERLVL = """
+    SELECT name, difficulty, money
+    FROM quest q1
+    WHERE money = (
+        SELECT MAX(money)
+        FROM quest q2
+        WHERE q1.difficulty = q2.difficulty
+        )
+    ORDER BY difficulty;
+    """
+
+    NPCMOSTGOLD = """
+    SELECT p.pnj_name, SUM(o.price) AS total_value
+    FROM pnjs_object p
+    JOIN object o ON p.object_name = o.name
+    GROUP BY p.pnj_name
+    ORDER BY total_value DESC
+    LIMIT 1;
+    """
+
+    # Didn't do this query yet...a
+    # LAISSE LE VIDE POUR LE MOMENT SINON CA CRASH LE PROGRAM
+    MOSTCOMMONITEMTYPELVL5 = """
+    
+    """
+
+    MONSTERHIGHESTREWARD = """
+    SELECT name, health, money
+    FROM monster
+    ORDER BY money DESC, health DESC
+    """
+    def __init__(self):
+        self.db = DatabaseManager()
+        self.db.connectToDatabase(dbName="gamedata", username="game_admin", password="1919")
+
+    def sendRequestsToDB(self, request: str, requestName: str):
+        # EXECUTE UNE REQUETE SQL EN TOUTE SECURITE ET EFFICACITE
+        try:
+            if self.db.isConnected():
+                self.db.execute(request)
+                return self.db.fetchData()
+            else:
+                print(f"[ERROR] : database is not connected for '{requestName}' query.")
+                return None
+        except Exception as e:
+            print(f"[ERROR] : failed to execute '{requestName}' query: {e}")
+            return None
+
+    def getTop10Gold(self):
+        return self.sendRequestsToDB(self.TOP10GOLD, "Top10Gold")
+
+    def getPlayerMostCharClass(self):
+        return self.sendRequestsToDB(self.PLAYERMOSTCHARCLASS, "PlayerMostCharClass")
+
+    def getBestRewardPerLvl(self):
+        return self.sendRequestsToDB(self.BESTREWARDPERLVL, "BestRewardPerLvl")
+
+    def getNpcMostGold(self):
+        return self.sendRequestsToDB(self.NPCMOSTGOLD, "NpcMostGold")
+
+    def getMostCommonItemTypeLvl5(self):
+        return self.sendRequestsToDB(self.MOSTCOMMONITEMTYPELVL5, "MostCommonItemTypeLvl5")
+
+    def getMonsterHighestReward(self):
+        return self.sendRequestsToDB(self.MONSTERHIGHESTREWARD, "MonsterHighestReward")

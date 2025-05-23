@@ -58,3 +58,5 @@ class QuestsLoader:
 
         print(f"[REQUESTS SUMMARY] : QUESTS -> {numberOFInserts} INSERTED | {numberOFSkkips} SKIPPED")
         db.close()
+
+
