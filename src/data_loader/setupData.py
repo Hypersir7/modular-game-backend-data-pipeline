@@ -24,6 +24,7 @@ charactersFilePath = os.path.join(currentDir, "..", "..", "data", "personnages.j
 npcsFilePath = os.path.join(currentDir, "..", "..", "data", "pnjs.json")
 questsFilePath = os.path.join(currentDir, "..", "..", "data", "quetes.xml")
 
+
 def main():
 	dbManager = DatabaseManager()
 
