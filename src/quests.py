@@ -36,9 +36,10 @@ ORDER BY total_value DESC
 LIMIT 1;
 """
 
-# Didn't do this query yet...
+# Didn't do this query yet...a
 
 MOSTCOMMONITEMTYPELVL5 = """
+...
 """
 
 MONSTERHIGHESTREWARD = """
