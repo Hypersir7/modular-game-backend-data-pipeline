@@ -40,10 +40,16 @@ class Requests:
     LIMIT 1;
     """
 
-    # Didn't do this query yet...a
-    # LAISSE LE VIDE POUR LE MOMENT SINON CA CRASH LE PROGRAM
     MOSTCOMMONITEMTYPELVL5 = """
-    
+    SELECT o.type, COUNT(*) AS count
+    FROM quest q
+    JOIN pnjs_quest pq ON q.name = pq.quest_name
+    JOIN pnjs_object po ON pq.pnj_name = po.pnj_name
+    JOIN object o ON po.object_name = o.name
+    WHERE q.difficulty = 5
+    GROUP BY o.type
+    ORDER BY count DESC
+    LIMIT 1;
     """
 
     MONSTERHIGHESTREWARD = """
