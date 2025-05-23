@@ -4,8 +4,27 @@ from tkinter import ttk
 
 
 def combo_box_select_item(event):
-    # rien pour le moment
-    res_list.insert(tk.END, "Hello world !")
+    selected_item = comboBox.get()
+    match selected_item:
+        case "Gold":
+
+            return
+        case "Characters from the same class":
+
+            return
+        case "Gold per Quest":
+
+            return
+        case "Richest NPC":
+
+            return
+        case "Most common object for level five quests":
+
+            return
+        case "Monsters with the best rewards in cumulative gold value based on their health points":
+
+            return
+
     return
 
 
