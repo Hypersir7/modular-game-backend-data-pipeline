@@ -61,11 +61,11 @@ class Requests:
         self.db = DatabaseManager()
         self.db.connectToDatabase(dbName="gamedata", username="game_admin", password="1919")
 
-    def sendRequestsToDB(self, request: str, requestName: str):
+    def sendRequestsToDB(self, request: str, values, requestName: str):
         # EXECUTE UNE REQUETE SQL EN TOUTE SECURITE ET EFFICACITE
         try:
             if self.db.isConnected():
-                self.db.execute(request)
+                self.db.execute(request, values)
                 return self.db.fetchData()
             else:
                 print(f"[ERROR] : database is not connected for '{requestName}' query.")
@@ -75,19 +75,19 @@ class Requests:
             return None
 
     def getTop10Gold(self):
-        return self.sendRequestsToDB(self.TOP10GOLD, "Top10Gold")
+        return self.sendRequestsToDB(self.TOP10GOLD, None, "Top10Gold")
 
     def getPlayerMostCharClass(self):
-        return self.sendRequestsToDB(self.PLAYERMOSTCHARCLASS, "PlayerMostCharClass")
+        return self.sendRequestsToDB(self.PLAYERMOSTCHARCLASS, None, "PlayerMostCharClass")
 
     def getBestRewardPerLvl(self):
-        return self.sendRequestsToDB(self.BESTREWARDPERLVL, "BestRewardPerLvl")
+        return self.sendRequestsToDB(self.BESTREWARDPERLVL, None, "BestRewardPerLvl")
 
     def getNpcMostGold(self):
-        return self.sendRequestsToDB(self.NPCMOSTGOLD, "NpcMostGold")
+        return self.sendRequestsToDB(self.NPCMOSTGOLD, None, "NpcMostGold")
 
     def getMostCommonItemTypeLvl5(self):
-        return self.sendRequestsToDB(self.MOSTCOMMONITEMTYPELVL5, "MostCommonItemTypeLvl5")
+        return self.sendRequestsToDB(self.MOSTCOMMONITEMTYPELVL5, None, "MostCommonItemTypeLvl5")
 
     def getMonsterHighestReward(self):
-        return self.sendRequestsToDB(self.MONSTERHIGHESTREWARD, "MonsterHighestReward")
+        return self.sendRequestsToDB(self.MONSTERHIGHESTREWARD, None, "MonsterHighestReward")
