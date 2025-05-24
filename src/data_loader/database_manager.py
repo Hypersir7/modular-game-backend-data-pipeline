@@ -17,8 +17,6 @@ class DatabaseManager:
         self.cursor = None
         self.connected = False
 
-
-
     def connectToDatabase(self, dbName, username, password):
         try:
             self.connection = psycopg2.connect(
@@ -82,7 +80,6 @@ class DatabaseManager:
             except Exception as e:
                 print("[ERROR] could not rollback transaction!")
                 print(f"ERROR TYPE : {e}")
-
 
     def fetchData(self):
         try:

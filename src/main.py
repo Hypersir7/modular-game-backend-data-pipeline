@@ -1,3 +1,4 @@
+import requests
 
 import tkinter as tk
 from tkinter import ttk
@@ -5,24 +6,50 @@ from tkinter import ttk
 
 def combo_box_select_item(event):
     selected_item = comboBox.get()
+    res_list.delete(0, tk.END)
+    req = requests.Requests()
+
     match selected_item:
         case "Gold":
-
+            data = req.getTop10Gold()
+            for row in data:
+                row_dict = dict(row)
+                res_list.insert(tk.END, f"{row_dict["username"]} : {row_dict["money"]}")
             return
         case "Characters from the same class":
+            data = req.getPlayerMostCharClass()
+            for row in data:
+                row_dict = dict(row)
+                res_list.insert(tk.END, f"{row_dict["username"]} : {row_dict["class"]},"
+                                        f" {row_dict["nb_characters"]}")
 
             return
         case "Gold per Quest":
-
+            data = req.getBestRewardPerLvl()
+            for row in data:
+                row_dict = dict(row)
+                res_list.insert(tk.END, f"{row_dict["name"]}, level {row_dict["difficulty"]} : "
+                                        f"{row_dict["money"]}")
             return
         case "Richest NPC":
-
+            data = req.getNpcMostGold()
+            for row in data:
+                row_dict = dict(row)
+                res_list.insert(tk.END, f"{row_dict["pnj_name"]} : {row_dict["total_value"]}")
             return
         case "Most common object for level five quests":
-
+            data = req.getMostCommonItemTypeLvl5()
+            for row in data:
+                row_dict = dict(row)
+                print(row_dict)
+                # res_list.insert(tk.END, f"{row_dict["pnj_name"]} : {row_dict["total_value"]}")
             return
         case "Monsters with the best rewards in cumulative gold value based on their health points":
-
+            data = req.getMonsterHighestReward()
+            for row in data:
+                row_dict = dict(row)
+                res_list.insert(tk.END, f"{row_dict["name"]} : (Health){row_dict["health"]} "
+                                        f"(money){row_dict["money"]}")
             return
 
     return
