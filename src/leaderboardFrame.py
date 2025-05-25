@@ -13,6 +13,10 @@ class LeaderBoardFrame(tk.Frame):
         headline = tk.Label(self, text="Leaderboard", font=("times new roman", 16))
         headline.place(x=20, y=20)
 
+        self.go_home_button = tk.Button(self, text="Home", borderwidth=0, fg="blue", activeforeground="black",
+                                        command=lambda: self.controller.show_frame("home"))
+        self.go_home_button.place(x=350, y=10)
+
         label = tk.Label(self, text="Choose criteria : ", font=("times new roman", 14))
         label.place(x=40, y=60)
 

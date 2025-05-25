@@ -51,6 +51,11 @@ class HomeFrame(tk.Frame):
                                            command=lambda: self.controller.show_frame("characters"))
         self.characters_button.place(x=20, y=150)
 
+        self.leaderboard_button = tk.Button(self, text=" > LeaderBoard", font=("times new roman", 12), fg="blue",
+                                            activeforeground="black", borderwidth=0,
+                                            command=lambda: self.controller.show_frame("leaderboard"))
+        self.leaderboard_button.place(x=20, y=180)
+
     def config_controller_dimensions(self):
         self.controller.geometry("700x700")
 
