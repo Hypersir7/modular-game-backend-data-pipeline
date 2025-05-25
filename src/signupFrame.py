@@ -15,6 +15,8 @@ class SignUpFrame(tk.Frame):
         self.username_label.place(x=40, y=60)
 
         self.entry = tk.Entry(self, width=150, borderwidth=0)
+        self.entry.bind("<Return>", lambda event: self.signup())
+        self.entry.focus_set()
         self.entry.place(x=60, y=90)
 
         login_label = tk.Label(self, text="If you already have an account, you can ", font=("times new roman", 9))
@@ -60,4 +62,4 @@ class SignUpFrame(tk.Frame):
 
         self.controller.username = username
 
-        self.controller.show_frame("home")
+        self.controller.make_home_frame()

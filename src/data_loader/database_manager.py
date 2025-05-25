@@ -87,7 +87,6 @@ class DatabaseManager:
                 raise Exception("[ERROR] No database cursor : call 'connectToDatabase()' to initalize it!")
             if self.cursor.description is not None:
                 data = self.cursor.fetchall()
-                print(data)
                 return data
             else:
                 return []
