@@ -85,9 +85,12 @@ class DatabaseManager:
         try:
             if self.cursor is None:
                 raise Exception("[ERROR] No database cursor : call 'connectToDatabase()' to initalize it!")
-
-            data = self.cursor.fetchall()
-            return data
+            if self.cursor.description is not None:
+                data = self.cursor.fetchall()
+                print(data)
+                return data
+            else:
+                return []
         except Exception as e:
             print("[ERROR] could not fetch data!")
             print(f"ERROR TYPE : {e} ")

@@ -69,3 +69,9 @@ CREATE TABLE IF NOT EXISTS spell (
     charge_time INTEGER NOT NULL,
     attack_power INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS player_object (
+    player_id INTEGER REFERENCES player(id) ON DELETE CASCADE,
+    object_name VARCHAR(100) REFERENCES object(name) ON DELETE CASCADE
+    PRIMARY KEY (player_id, object_name)
+);

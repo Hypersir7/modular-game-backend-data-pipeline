@@ -74,6 +74,9 @@ class Requests:
             print(f"[ERROR] : failed to execute '{requestName}' query: {e}")
             return None
 
+    def commit_transactions(self):
+        self.db.commit()
+
     def getTop10Gold(self):
         return self.sendRequestsToDB(self.TOP10GOLD, None, "Top10Gold")
 
