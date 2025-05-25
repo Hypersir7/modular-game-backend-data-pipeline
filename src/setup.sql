@@ -72,6 +72,12 @@ CREATE TABLE IF NOT EXISTS spell (
 
 CREATE TABLE IF NOT EXISTS player_object (
     player_id INTEGER REFERENCES player(id) ON DELETE CASCADE,
-    object_name VARCHAR(100) REFERENCES object(name) ON DELETE CASCADE
+    object_name VARCHAR(100) REFERENCES object(name) ON DELETE CASCADE,
     PRIMARY KEY (player_id, object_name)
 );
+
+CREATE TABLE IF NOT EXISTS quest_object (
+    quest_name VARCHAR(200) REFERENCES quest(name) ON DELETE CASCADE,
+    object_name VARCHAR(100) REFERENCES object(name) ON DELETE CASCADE,
+    PRIMARY KEY (quest_name, object_name)
+)
