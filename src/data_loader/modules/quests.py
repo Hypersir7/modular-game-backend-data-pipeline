@@ -31,10 +31,21 @@ class QuestsLoader:
 
                 rewards = quest.find("Récompenses")
                 money = 0
+
+                objects = []
+
+
                 if rewards is not None:
                     gold = rewards.find("Or")
                     if gold is not None:
                         money = Convertor.convertToInt(gold.text)
+
+                        objectsTag = rewards.findall("Objets")
+
+                        for tag in objectsTag:
+                            if tag.text:
+                                objects.append(tag.text.strip())
+
 
                 if not name or xp is None or difficulty is None or money is None:
                     print(f"[WARNING] : [QUESTS] invalid values detected for quest '{name}' — skipping ...")
@@ -47,8 +58,18 @@ class QuestsLoader:
                     ON CONFLICT (name) DO NOTHING
                 """
 
+                # LINKING TO quest_object
+                for obj in objects:
+                    db.execute("SELECT name FROM object WHERE name = %s LIMIT 1", (obj,))
+                    if db.cursor.fetchone(): # ca EXSITE ALORS car le resultat est valide
+                        newRequest = """
+                                    INSERT INTO quest_object (quest_name, object_name)
+                                    VALUES (%s, %s)
+                                    ON CONFLICT DO NOTHING
+                                     """
+                        db.execute(request=newRequest, values=(name, obj))
+                        db.commit()
                 db.execute(request=request, values=(name, xp, difficulty, money, description))
-
                 db.commit()
                 numberOFInserts += 1
             except Exception as e:
