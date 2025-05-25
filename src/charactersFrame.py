@@ -25,19 +25,19 @@ class CharactersFrame(tk.Frame):
         self.class_label.place(x=20, y=70)
 
         self.health_label = tk.Label(self, font=("times new roman", 12))
-        self.health_label.place(x=120, y=70)
+        self.health_label.place(x=20, y=100)
 
         self.mana_label = tk.Label(self, font=("times new roman", 12))
-        self.mana_label.place(x=220, y=70)
+        self.mana_label.place(x=20, y=130)
 
         self.power_label = tk.Label(self, font=("times new roman", 12))
-        self.power_label.place(x=320, y=70)
+        self.power_label.place(x=20, y=160)
 
         self.intelligence_label = tk.Label(self, font=("times new roman", 12))
-        self.intelligence_label.place(x=420, y=70)
+        self.intelligence_label.place(x=20, y=190)
 
         self.agility_label = tk.Label(self, font=("times new roman", 12))
-        self.agility_label.place(x=520, y=70)
+        self.agility_label.place(x=20, y=220)
 
     def config_controller_dimensions(self):
         self.controller.geometry("700x700")
@@ -55,7 +55,7 @@ class CharactersFrame(tk.Frame):
 
         self.characters_combobox.config(values=values)
 
-    def load_character_info(self):
+    def load_character_info(self, event):
         username = self.controller.username
         character_name = self.characters_combobox.get()
 
@@ -66,4 +66,15 @@ class CharactersFrame(tk.Frame):
         """, (username, character_name), "get character's info")
 
         ch_class = data[0]["class"]
+        health = data[0]["health"]
+        mana = data[0]["mana"]
+        strength = data[0]["strength"]
+        intelligence = data[0]["intelligence"]
+        agility = data[0]["agility"]
 
+        self.class_label.config(text=f"Class : {ch_class}")
+        self.health_label.config(text=f"Health : {health}")
+        self.mana_label.config(text=f"Mana : {mana}")
+        self.power_label.config(text=f"Strength : {strength}")
+        self.intelligence_label.config(text=f"Intelligence : {intelligence}")
+        self.agility_label.config(text=f"Agility : {agility}")
