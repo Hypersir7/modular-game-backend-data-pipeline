@@ -25,14 +25,14 @@ class LeaderBoardFrame(tk.Frame):
         self.comboBox.place(x=60, y=100)
         self.comboBox.bind("<<ComboboxSelected>>", self.combo_box_select_item)
 
-        frame = tk.Frame(self, height=530, width=320, bg="SystemButtonFace", bd=0)
+        frame = tk.Frame(self, height=530, width=320, bd=0)
         frame.place(x=60, y=140)
         frame.propagate(False)
 
         scrollbar = ttk.Scrollbar(frame)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
-        self.res_list = tk.Listbox(frame, yscrollcommand=scrollbar.set, border=False, bg="SystemButtonFace",
+        self.res_list = tk.Listbox(frame, yscrollcommand=scrollbar.set, border=False,
                                    font=("times new roman", 12), bd=0)
 
         self.res_list.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)

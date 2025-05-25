@@ -28,3 +28,4 @@ class ToolTip:
         if self.tooltip_window:
             self.tooltip_window.destroy()
             self.tooltip_window = None
+

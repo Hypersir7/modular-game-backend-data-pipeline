@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS player (
     inventory_slots INTEGER NOT NULL
 );
 
+
 CREATE TABLE IF NOT EXISTS monster (
     id Serial PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE,
@@ -18,6 +19,7 @@ CREATE TABLE IF NOT EXISTS monster (
     money INTEGER NOT NULL,
     probability INTEGER NOT NULL
 );
+
 
 CREATE TABLE IF NOT EXISTS object (
     name VARCHAR(100) NOT NULL UNIQUE,
