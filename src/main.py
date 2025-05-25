@@ -24,8 +24,7 @@ class Application(tk.Tk):
 
         self.frames = {"login": loginFrame.LongInFrame(self.container_frame, self),
                        "signup": signupFrame.SignUpFrame(self.container_frame, self),
-                       "leaderboard": leaderboardFrame.LeaderBoardFrame(self.container_frame, self),
-                       "characters": charactersFrame.CharactersFrame(self.container_frame, self)}
+                       "leaderboard": leaderboardFrame.LeaderBoardFrame(self.container_frame, self)}
 
         self.frames[self.currently_visible_frame_id].config_controller_dimensions()
         self.frames[self.currently_visible_frame_id].place(x=0, y=0)
@@ -40,6 +39,7 @@ class Application(tk.Tk):
 
     def make_home_frame(self):
         self.frames["home"] = homeFrame.HomeFrame(self.container_frame, self)
+        self.frames["characters"] = charactersFrame.CharactersFrame(self.container_frame, self)
         self.show_frame("home")
 
     def logout(self):
