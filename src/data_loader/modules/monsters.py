@@ -49,11 +49,50 @@ class MonstersLoader:
                 """
                 db.execute(request=request, values=(name, health, attack, defense, money, probability))
                 db.commit()
+                # LINKING Monster drops to the database
+                # RETRIEVE MONSTER ID TO WORK WITH IT
+                db.execute("""
+                    SELECT id FROM monster WHERE name = %s
+                """, (name,))
+                result = db.fetchData()
+                if not result:
+                    print(f"[ERROR] could not retrieve ID for monster: {name}")
+                    continue
+                monsterID = result[0]["id"]
+
+                if drops is not None:
+                    for drop in drops:
+                        tag = drop.tag.strip()
+                        if tag.lower() == "or":
+                            continue  # GOLD ALREADY HANDLED AVOVE
+                        try:
+                            objectName = tag.replace("_", " ") # ex: Potion_de_Super en Potion de Super
+                            objectProbTag = drop.find("probabilité")
+                            if objectProbTag is None: 
+                                print(f"[WARNING] No probabilité for object {objectName} → skipping")
+                                continue
+
+                            objectProb = Convertor.convertToInt(objectProbTag.text.strip())
+
+                            db.execute("SELECT name FROM object WHERE name = %s", (objectName,))
+                            result = db.fetchData()
+                            if not result:
+                                print(f"[WARNING] object '{objectName}' not found in 'object' table → skipping.")
+                                continue
+
+                            # LINKING TO monster_object
+                            db.execute("""
+                                INSERT INTO monster_object (monster_id, object_name, probability)
+                                VALUES (%s, %s, %s)
+                                ON CONFLICT DO NOTHING
+                            """, (monsterID, objectName, objectProb))
+                        except Exception as e:
+                            print(f"[ERROR] failed to insert drop '{tag}' for monster '{name}': {e}")
                 numberOFInserts += 1
                 #print(f"Inserted monster: {name}")
-
             except Exception as e:
                 print(f"[ERROR] failed to insert monster {name} into database : {e}")
                 db.rollback()
         print(f"[REQUESTS SUMMARY] : MONSTERS -> {numberOFInserts} INSERTED | {numberOFSkkips} SKIPPED")
         db.close()
+

@@ -80,14 +80,15 @@ class LeaderBoardFrame(tk.Frame):
                 for row in data:
                     row_dict = dict(row)
                     print(row_dict)
-                    # res_list.insert(tk.END, f"{row_dict["pnj_name"]} : {row_dict["total_value"]}")
+                    self.res_list.insert(tk.END, f"{row_dict["type"]} : {row_dict["count"]}")
                 return
             case "Monsters with the best rewards in cumulative gold value based on their health points":
                 data = self.controller.req.getMonsterHighestReward()
                 for row in data:
                     row_dict = dict(row)
-                    self.res_list.insert(tk.END, f"{row_dict["name"]} : (Health){row_dict["health"]} "
-                                                 f"(money){row_dict["money"]}")
+                    if row_dict is not None:
+                        self.res_list.insert(tk.END, f"{row_dict["name"]} -- Health: {row_dict["health"]} "
+                                                 f"money: {row_dict["money"]}")
                 return
 
         return

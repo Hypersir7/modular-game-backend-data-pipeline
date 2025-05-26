@@ -1,4 +1,4 @@
-from data_loader.database_manager import DatabaseManager
+from src.data_loader.database_manager import DatabaseManager
 
 
 # ====================== COMMUNICATING AND GETTING DATA FROM THE DATABASE ======================
