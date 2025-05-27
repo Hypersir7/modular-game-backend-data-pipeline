@@ -93,6 +93,7 @@ CREATE TABLE IF NOT EXISTS monster_object (
     PRIMARY KEY (monster_id, object_name)
 );
 
+
 CREATE TABLE IF NOT EXISTS player_quest (
     player_id INTEGER REFERENCES player(id) ON DELETE CASCADE,
     quest_name VARCHAR(200) REFERENCES quest(name) ON DELETE CASCADE,
