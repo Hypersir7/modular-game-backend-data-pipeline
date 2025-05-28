@@ -23,7 +23,7 @@ class QuestsLoader:
                 xp = Convertor.convertToInt(quest.find("Expérience").text)
                 difficulty = Convertor.convertToInt(quest.find("Difficulté").text)
 
-                descriptionTag = quest.find("Description")
+                descriptionTag = quest.find("Descripion")
                 if descriptionTag is not None and descriptionTag.text is not None:
                     description = descriptionTag.text.strip()
                 else:

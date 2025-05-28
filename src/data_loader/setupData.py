@@ -121,6 +121,7 @@ def main():
 
 		print("\n[END] : SUCESSFULLY LOADED AND FETCHED  ALL DATA  (DECOMMENTE PREVIOUS LINES TO SHOW FETCHED DATA!") 
 
+		print()
 	except Exception as e:
 		print(f"[ERROR] could not retrieve data! : {e}")
 		dbManager.rollback();

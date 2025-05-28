@@ -2,6 +2,7 @@ import xml.etree.ElementTree as EM
 from database_manager import DatabaseManager
 from convertor import Convertor
 
+
 class MonstersLoader:
     @staticmethod
     def loadMonsters(filepath):
@@ -66,9 +67,9 @@ class MonstersLoader:
                         if tag.lower() == "or":
                             continue  # GOLD ALREADY HANDLED AVOVE
                         try:
-                            objectName = tag.replace("_", " ") # ex: Potion_de_Super en Potion de Super
+                            objectName = tag.replace("_", " ")  # ex: Potion_de_Super en Potion de Super
                             objectProbTag = drop.find("probabilité")
-                            if objectProbTag is None: 
+                            if objectProbTag is None:
                                 print(f"[WARNING] No probabilité for object {objectName} → skipping")
                                 continue
 
@@ -89,10 +90,9 @@ class MonstersLoader:
                         except Exception as e:
                             print(f"[ERROR] failed to insert drop '{tag}' for monster '{name}': {e}")
                 numberOFInserts += 1
-                #print(f"Inserted monster: {name}")
+                # print(f"Inserted monster: {name}")
             except Exception as e:
                 print(f"[ERROR] failed to insert monster {name} into database : {e}")
                 db.rollback()
         print(f"[REQUESTS SUMMARY] : MONSTERS -> {numberOFInserts} INSERTED | {numberOFSkkips} SKIPPED")
         db.close()
-

@@ -19,4 +19,4 @@ class Convertor:
 			return Convertor.convertToInt(treeElement.text, default)
 		else:
 			return default
-		
+
