@@ -6,6 +6,8 @@ from src.tools import requests
 from src.interface import loginFrame, signupFrame, leaderboardFrame, homeFrame, charactersFrame
 from src.interface.inventoryFrame import InventoryFrame
 from src.interface.monstersFrame import MonstersFrame
+from src.interface.questsFrame import QuestsFrame
+
 
 class Application(tk.Tk):
     req = requests.Requests()
@@ -40,7 +42,8 @@ class Application(tk.Tk):
         self.frames["home"] = homeFrame.HomeFrame(self.container_frame, self)
         self.frames["characters"] = charactersFrame.CharactersFrame(self.container_frame, self)
         self.frames["inventory"] = InventoryFrame(self.container_frame, self)
-        self.frames["monsters"] = MonstersFrame(self.container_frame, self) 
+        self.frames["monsters"] = MonstersFrame(self.container_frame, self)
+        self.frames["quests"] = QuestsFrame(self.container_frame, self)
         self.show_frame("home")
 
     def logout(self):
