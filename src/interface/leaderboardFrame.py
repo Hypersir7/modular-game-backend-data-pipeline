@@ -52,43 +52,43 @@ class LeaderBoardFrame(tk.Frame):
                 data = self.controller.req.getTop10Gold()
                 for row in data:
                     row_dict = dict(row)
-                    self.res_list.insert(tk.END, f"{row_dict["username"]} : {row_dict["money"]}")
+                    self.res_list.insert(tk.END, f"{row_dict['username']} : {row_dict['money']}")
                 return
             case "Characters from the same class":
                 data = self.controller.req.getPlayerMostCharClass()
                 for row in data:
                     row_dict = dict(row)
-                    self.res_list.insert(tk.END, f"{row_dict["username"]} : {row_dict["class"]}, "
-                                                 f"{row_dict["nb_characters"]}")
+                    self.res_list.insert(tk.END, f"{row_dict['username']} : {row_dict['class']}, "
+                                                 f"{row_dict['nb_characters']}")
 
                 return
             case "Gold per Quest":
                 data = self.controller.req.getBestRewardPerLvl()
                 for row in data:
                     row_dict = dict(row)
-                    self.res_list.insert(tk.END, f"{row_dict["name"]}, level {row_dict["difficulty"]} : "
-                                                 f"{row_dict["money"]}")
+                    self.res_list.insert(tk.END, f"{row_dict['name']}, level {row_dict['difficulty']} : "
+                                                 f"{row_dict['money']}")
                 return
             case "Richest NPC":
                 data = self.controller.req.getNpcMostGold()
                 for row in data:
                     row_dict = dict(row)
-                    self.res_list.insert(tk.END, f"{row_dict["pnj_name"]} : {row_dict["total_value"]}")
+                    self.res_list.insert(tk.END, f"{row_dict['pnj_name']} : {row_dict['total_value']}")
                 return
             case "Most common object for level five quests":
                 data = self.controller.req.getMostCommonItemTypeLvl5()
                 for row in data:
                     row_dict = dict(row)
                     print(row_dict)
-                    self.res_list.insert(tk.END, f"{row_dict["type"]} : {row_dict["count"]}")
+                    self.res_list.insert(tk.END, f"{row_dict['type']} : {row_dict['count']}")
                 return
             case "Monsters with the best rewards in cumulative gold value based on their health points":
                 data = self.controller.req.getMonsterHighestReward()
                 for row in data:
                     row_dict = dict(row)
                     if row_dict is not None:
-                        self.res_list.insert(tk.END, f"{row_dict["name"]} -- Health: {row_dict["health"]} "
-                                                 f"money: {row_dict["money"]}")
+                        self.res_list.insert(tk.END, f"{row_dict['name']} -- Health: {row_dict['health']} "
+                                                 f"money: {row_dict['money']}")
                 return
 
         return

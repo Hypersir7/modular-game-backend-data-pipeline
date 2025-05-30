@@ -80,6 +80,11 @@ class HomeFrame(tk.Frame):
                                         command=lambda: self.controller.show_frame("quests"))
         self.quests_button.place(x=20, y=270)
 
+        self.npc_button = tk.Button(self, text=" > NPCs", font=("times new roman", 12), fg="blue",
+                                        activeforeground="black", borderwidth=0,
+                                        command=lambda: self.controller.show_frame("npcs"))
+        self.npc_button.place(x=20, y=300)
+
 
     def config_controller_dimensions(self):
         self.controller.geometry("700x700")
