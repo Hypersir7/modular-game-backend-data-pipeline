@@ -150,8 +150,8 @@ class NpcFrame(tk.Frame):
 
     def accept_selected_quest(self):
         quest_name = self.quest_combobox.get()
-        if not quest_name:
-            self.result_label.config(text="Select a quest to accept.")
+        if quest_name == "No quests available" or not quest_name:
+            self.result_label.config(text="No quests available to accept.")
             return
         
         username = self.controller.username
