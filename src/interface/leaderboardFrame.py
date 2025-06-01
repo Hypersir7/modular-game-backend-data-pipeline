@@ -79,7 +79,6 @@ class LeaderBoardFrame(tk.Frame):
                 data = self.controller.req.getMostCommonItemTypeLvl5()
                 for row in data:
                     row_dict = dict(row)
-                    print(row_dict)
                     self.res_list.insert(tk.END, f"{row_dict['type']} : {row_dict['count']}")
                 return
             case "Monsters with the best rewards in cumulative gold value based on their health points":
