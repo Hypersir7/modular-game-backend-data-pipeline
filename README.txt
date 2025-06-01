@@ -1,3 +1,35 @@
+Setup the project before launching main.py
+
+# Setup : 
+
+1. sudo apt update
+2. sudo apt install postgresql postgresql-contrib
+3. sudo service postgresql start
+4. sudo -u postgres psql # This will open the sql terminal
+
+In the sql Terminal : 
+
+5. Create a new user:
+	CREATE USER game_admin WITH PASSWORD '1919';
+
+6. Create a new database
+	CREATE DATABASE gamedata OWNER game_admin;
+
+7. Give the user privileges
+	GRANT ALL PRIVILEGES ON DATABASE gamedata TO game_admin;
+
+8. \q # close the sql terminal
+
+
+9. Create the tables using (you should be inside the project folder): 
+	psql -U game_admin -d gamedata -h localhost -f database/setup.sql
+
+10. Run setupData to insert the values in the tables 
+
+Now you can run main.py
+
+===========================================================================================================================
+
 # Project Structure - Data Loader
 
 ## IMPORTANT INFORMATION
