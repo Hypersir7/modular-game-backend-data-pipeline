@@ -23,7 +23,8 @@ class QuestsLoader:
                 xp = Convertor.convertToInt(quest.find("Expérience").text)
                 difficulty = Convertor.convertToInt(quest.find("Difficulté").text)
 
-                descriptionTag = quest.find("Descripion")
+                descriptionTag = quest.find("Descripion") # Descripion IS A TYPO IN THE XML BY THE TEACHER
+                                                          # BUT NECESSSARY TO HERE TO RETRIEVE THE DESCRIPTION
                 if descriptionTag is not None and descriptionTag.text is not None:
                     description = descriptionTag.text.strip()
                 else:
@@ -57,7 +58,8 @@ class QuestsLoader:
                     VALUES (%s, %s, %s, %s, %s)
                     ON CONFLICT (name) DO NOTHING
                 """
-
+                db.execute(request=request, values=(name, xp, difficulty, money, description))
+                db.commit()
                 # LINKING TO quest_object
                 for obj in objects:
                     db.execute("SELECT name FROM object WHERE name = %s LIMIT 1", (obj,))
@@ -68,8 +70,6 @@ class QuestsLoader:
                                     ON CONFLICT DO NOTHING
                                      """
                         db.execute(request=newRequest, values=(name, obj))
-                        db.commit()
-                db.execute(request=request, values=(name, xp, difficulty, money, description))
                 db.commit()
                 numberOFInserts += 1
             except Exception as e:

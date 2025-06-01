@@ -7,7 +7,11 @@ class NpcsLoader:
     @staticmethod
     def loadNpcs(filePath: str) -> None:
         numberOFInserts = 0
-        numberOFSkkips = 0
+        numberOFSkkips = {
+            "invalidNpc": 0,
+            "missingQuest": 0,
+            "missingObject": 0
+        }
 
         dbManager = DatabaseManager()
         dbManager.connectToDatabase(dbName="gamedata", username="game_admin", password="1919")
@@ -26,7 +30,7 @@ class NpcsLoader:
 
                 if not name or not dialogue:
                     # print(f"[WARNING] : [NPCS] invalid values detected ! skipping NPC insertion ...")
-                    numberOFSkkips += 1
+                    numberOFSkkips["invalidNpc"] += 1
                     continue
 
                 # INSERTING NPC DATA
@@ -55,7 +59,7 @@ class NpcsLoader:
 
                     else:
                         # print(f"[WARNING] : [NPCS] quest '{formattedQuest}' does not exist in the database. Skipping ...")
-                        numberOFSkkips += 1
+                        numberOFSkkips["missingQuest"] += 1
 
                 for object in npc.get("Inventaire", []):
                     dbManager.execute("SELECT name FROM object WHERE name = %s LIMIT 1", (object,))
@@ -70,11 +74,17 @@ class NpcsLoader:
                     
                     else:
                         # print(f"[WARNING] : [NPCS] object '{object}' does not exist in the database. Skipping ...")
-                        numberOFSkkips += 1
+                        numberOFSkkips["missingObject"] += 1
                 dbManager.commit()
             except Exception as e:
                 print(f"[ERROR] failed to insert NPC data: {e}")
                 dbManager.rollback()
-                numberOFSkkips += 1
-        print(f"[REQUESTS SUMMARY] : NPCS -> {numberOFInserts} INSERTED | {numberOFSkkips} SKIPPED")
+                
+        print("\n========== [SUMMARY] ==========")
+        print(f" INSERTED NPCs : {numberOFInserts}")
+        print(f" SKIPPED (invalid NPCs) : {numberOFSkkips['invalidNpc']}")
+        print(f"SKIPPED (missing quests) : {numberOFSkkips['missingQuest']}")
+        print(f"SKIPPED (missing objects): {numberOFSkkips['missingObject']}")
+        print(f" TOTAL SKIPPED : {sum(numberOFSkkips.values())}")
+        print("================================\n")
         dbManager.close()
