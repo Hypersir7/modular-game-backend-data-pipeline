@@ -30,23 +30,30 @@ def main():
 
 	dbManager.connectToDatabase(dbName="gamedata", username="game_admin", password="1919") # type: ignore
 
-	# ----- LOADING PLAYERS DATA -----
-	print("\n\n========== [INFO] LOADING PLAYERS DATA ==========")
-	pLoader = PlayersLoader()
-	pLoader.loadPlayers(playersFilePath)
-	print(f"\n==========[RESULT] SUCCESSFULLY LOADED PLAYERS DATA ! ==========")
-
 	# ----- LOADING OBJECTS DATA -----
 	print("\n\n========== [INFO] LOADING OBJECTS DATA ==========")
 	oLoader = ObjectsLoader()
 	oLoader.loadObjects(objectsFilePath)
 	print(f"\n==========[RESULT] SUCCESSFULLY LOADED OBJECTS DATA ! ==========")
 
+	# ----- LOADING QUESTS DATA -----
+	print("\n\n========== [INFO] LOADING QUESTS DATA ==========")
+	qLoader = QuestsLoader()
+	qLoader.loadQuests(questsFilePath)
+	print(f"\n==========[RESULT] SUCCESSFULLY LOADED QUESTS DATA ! ==========")
+
+	# ----- LOADING NPCS DATA -----
+	print("\n\n========== [INFO] LOADING NPCS DATA ==========")
+	nLoader = NpcsLoader()
+	nLoader.loadNpcs(npcsFilePath)
+	print(f"\n==========[RESULT] SUCCESSFULLY LOADED NPCS DATA ! ==========")
+
 	# ----- LOADING MONSTERS DATA -----
 	print("\n\n========== [INFO] LOADING MONSTERS DATA ==========")
 	mLoader = MonstersLoader()
 	mLoader.loadMonsters(monstersFilePath)
 	print(f"\n==========[RESULT] SUCCESSFULLY LOADED MONSTERS DATA ! ==========")
+
 
 	# ----- LOADING SPELLS DATA -----
 	print("\n\n========== [INFO] LOADING SPELLS DATA ==========")
@@ -59,18 +66,12 @@ def main():
 	cLoader = CharactersLoader()
 	cLoader.loadCharacters(charactersFilePath)
 	print(f"\n==========[RESULT] SUCCESSFULLY LOADED CHARACTERS DATA ! ==========")
-
-	# ----- LOADING NPCS DATA -----
-	print("\n\n========== [INFO] LOADING NPCS DATA ==========")
-	nLoader = NpcsLoader()
-	nLoader.loadNpcs(npcsFilePath)
-	print(f"\n==========[RESULT] SUCCESSFULLY LOADED NPCS DATA ! ==========")
-
-	# ----- LOADING QUESTS DATA -----
-	print("\n\n========== [INFO] LOADING QUESTS DATA ==========")
-	qLoader = QuestsLoader()
-	qLoader.loadQuests(questsFilePath)
-	print(f"\n==========[RESULT] SUCCESSFULLY LOADED QUESTS DATA ! ==========")
+	
+	# ----- LOADING PLAYERS DATA -----
+	print("\n\n========== [INFO] LOADING PLAYERS DATA ==========")
+	pLoader = PlayersLoader()
+	pLoader.loadPlayers(playersFilePath)
+	print(f"\n==========[RESULT] SUCCESSFULLY LOADED PLAYERS DATA ! ==========")
 
 
 	# ----- FETCHING AND DISPLAYING DATA -----
@@ -125,6 +126,11 @@ def main():
 	except Exception as e:
 		print(f"[ERROR] could not retrieve data! : {e}")
 		dbManager.rollback();
+
+	finally:
+		dbManager.close()
+		print("\n[END] : SUCCESSFULLY CLOSED DATABASE CONNECTION !")
+		print("\n\n========== [END] SETUP DATA FINISHED ==========\n\n")
 
 if __name__ == "__main__":
 	main()
