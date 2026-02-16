@@ -1,58 +1,76 @@
-Setup the project before launching main.py
+# Modular Game Backend – Data Pipeline & Persistence Layer
 
-# Setup : 
+## Overview
+This project implements a modular backend data pipeline designed to manage, validate, and ingest structured game data into a PostgreSQL database.  
+The system provides a transaction-safe ingestion architecture that ensures reliable loading of game entities such as players, NPCs, quests, items, monsters, and spells.
 
-1. sudo apt update
-2. sudo apt install postgresql postgresql-contrib
-3. sudo service postgresql start
-4. sudo -u postgres psql # This will open the sql terminal
+The architecture emphasizes **low coupling, high cohesion**, and modular entity loaders, allowing scalable expansion of the data ingestion process.
 
-In the sql Terminal : 
+---
 
-5. Create a new user:
-	CREATE USER game_admin WITH PASSWORD '1919';
+## My Contributions
+- Designed and implemented the **DatabaseManager** responsible for:
+  - PostgreSQL connection management
+  - transaction handling and rollback mechanisms
+  - query execution abstraction
+- Designed the **modular data ingestion pipeline architecture**
+- Implemented the **entity loading modules structure**
+- Structured the backend directory layout and ingestion workflow
 
-6. Create a new database
-	CREATE DATABASE gamedata OWNER game_admin;
+Other contributors implemented the interface and interaction components of the application.
 
-7. Give the user privileges
-	GRANT ALL PRIVILEGES ON DATABASE gamedata TO game_admin;
+---
 
-8. \q # close the sql terminal
+## Architecture
+Game Logic
+↓
+Data Loading Modules
+↓
+DatabaseManager
+↓
+PostgreSQL Database
 
+The pipeline loads and validates structured data before securely inserting it into the persistence layer.
 
-9. Create the tables using (you should be inside the project folder): 
-	psql -U game_admin -d gamedata -h localhost -f database/setup.sql
+---
 
-10. Run setupData to insert the values in the tables 
+## Features
+- PostgreSQL-backed persistence layer
+- Transaction-safe ingestion with rollback support
+- Modular entity loaders for scalable data management
+- Structured backend architecture for maintainability
+- Logging and data validation during ingestion
 
-Now you can run main.py
+---
 
-===========================================================================================================================
+## Setup
 
-# Project Structure - Data Loader
+### Install PostgreSQL
+```bash
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+sudo service postgresql start
+```
+Create database and user
+CREATE USER game_admin WITH PASSWORD '1919';
+CREATE DATABASE gamedata OWNER game_admin;
+GRANT ALL PRIVILEGES ON DATABASE gamedata TO game_admin;
 
-## IMPORTANT INFORMATION
+Create tables
+psql -U game_admin -d gamedata -h localhost -f database/setup.sql
 
-Inside the src/data_loader/ folder, you will find the backend scripts of the project.
+Load data
+python src/data_loader/setupData.py
 
-The data_loader/ directory is responsible for loading, converting, and inserting game data into the database in a secure and modular way (Low coupling + high cohesion architecture)
+Project Structure
+src/
+ ├── data_loader/
+ │   ├── database_manager.py
+ │   ├── converter.py
+ │   ├── modules/
+ │   │   ├── players.py
+ │   │   ├── monsters.py
+ │   │   ├── quests.py
+ │   │   └── ...
+ │   └── setupData.py
 
-
-### Structure of data_loader/
-
-data_loader/
-├── convertor.py             # Safely converts values (e.g., string to int) with error handling, etc
-├── database_manager.py      # Manages database connections, queries, transactions, and rollbacks, etc
-├── loadingInfo.log          # Log file : INFO ON loading operations and warnings
-├── modules/                 # Independant modules to handle and load enteties DATA
-│   ├── characters.py        # Loads character data 
-│   ├── monsters.py          # Loads monsters 
-│   ├── npcs.py              # Loads NPCs and their quests, dialogues, inventories
-│   ├── objects.py           # Loads inventory items
-│   ├── players.py           # Loads player data
-│   ├── quests.py            # Loads quests, xp, difficulty, etc
-│   └── spells.py            # Loads spells 
-├── pycache/                 
-│   └── *.pyc
-└── setupData.py             # Main script that coordinates the full data loading, fetching and displaying process
